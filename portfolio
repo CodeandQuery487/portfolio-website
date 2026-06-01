@@ -1,0 +1,729 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Nimra Tabassum | Web Developer & Software Student</title>
+  <!-- Google Fonts + Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #0d0d0d;
+      color: #eef2ff;
+      scroll-behavior: smooth;
+    }
+
+    /* Purple accent color */
+    :root {
+      --accent: #6C63FF;
+      --accent-dark: #5a52e0;
+      --accent-glow: rgba(108, 99, 255, 0.3);
+      --glass-bg: rgba(30, 30, 46, 0.7);
+      --glass-border: rgba(108, 99, 255, 0.2);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.8rem;
+    }
+
+    /* Scroll animations */
+    section {
+      padding: 5rem 0;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Glassmorphism base */
+    .glass-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      transition: all 0.3s ease;
+    }
+
+    .glass-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(108, 99, 255, 0.15);
+    }
+
+    /* Navbar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 1.2rem 0;
+      background: rgba(13, 13, 13, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(108, 99, 255, 0.2);
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 1.7rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), #b084ff);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 500;
+      color: #cbd5e6;
+      transition: color 0.2s;
+      font-size: 1rem;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 1.6rem;
+      background: none;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 2rem;
+      border-radius: 40px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      border: none;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+      box-shadow: 0 8px 20px var(--accent-glow);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-dark);
+      transform: translateY(-3px);
+    }
+
+    .btn-outline {
+      border: 2px solid var(--accent);
+      background: transparent;
+      color: var(--accent);
+    }
+
+    .btn-outline:hover {
+      background: var(--accent);
+      color: white;
+      transform: translateY(-3px);
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 5rem;
+    }
+
+    .hero-grid {
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-content {
+      flex: 1.3;
+    }
+
+    .hero-badge {
+      background: rgba(108, 99, 255, 0.15);
+      display: inline-block;
+      padding: 0.3rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 1.2rem;
+      color: var(--accent);
+    }
+
+    .hero-content h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-title {
+      font-size: 1.4rem;
+      font-weight: 500;
+      margin-bottom: 0.8rem;
+      color: #b9c3e6;
+    }
+
+    .hero-desc {
+      margin: 1.5rem 0 2rem;
+      max-width: 500px;
+      opacity: 0.85;
+      line-height: 1.6;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-image {
+      flex: 1;
+      text-align: center;
+    }
+
+    .avatar {
+      width: 280px;
+      height: 280px;
+      background: linear-gradient(135deg, var(--accent), #8f88ff);
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 7rem;
+      box-shadow: 0 25px 40px rgba(108, 99, 255, 0.3);
+      border: 3px solid rgba(108, 99, 255, 0.5);
+    }
+
+    /* Section Titles */
+    .section-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 2.5rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title:after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 60%;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 4px;
+    }
+
+    /* About Section */
+    .about-grid {
+      display: flex;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .about-text {
+      flex: 1.5;
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    .about-text p {
+      margin-bottom: 1rem;
+      opacity: 0.9;
+    }
+
+    .about-photo {
+      flex: 1;
+      text-align: center;
+    }
+
+    .profile-circle {
+      width: 220px;
+      height: 220px;
+      background: linear-gradient(145deg, #1e1e30, #12121f);
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 3px solid var(--accent);
+      box-shadow: 0 20px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .profile-circle i {
+      font-size: 5.5rem;
+      color: var(--accent);
+    }
+
+    /* Skills Section */
+    .skills-container {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .skill-category {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      border-radius: 28px;
+      padding: 1.8rem;
+      border: 1px solid var(--glass-border);
+    }
+
+    .category-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      color: var(--accent);
+    }
+
+    .skill-item {
+      margin-bottom: 1.2rem;
+    }
+
+    .skill-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .skill-bar-bg {
+      background: #2a2a3a;
+      border-radius: 20px;
+      height: 8px;
+      overflow: hidden;
+    }
+
+    .skill-bar-fill {
+      background: var(--accent);
+      width: 0%;
+      height: 100%;
+      border-radius: 20px;
+      transition: width 1s ease-out;
+    }
+
+    /* Projects Grid */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+
+    .project-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--accent);
+    }
+
+    .project-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-desc {
+      opacity: 0.8;
+      margin: 0.8rem 0;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .tech-badge {
+      display: inline-block;
+      background: rgba(108, 99, 255, 0.2);
+      padding: 0.25rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      margin: 0.5rem 0.5rem 0 0;
+    }
+
+    .project-link {
+      display: inline-block;
+      margin-top: 1.2rem;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .project-link i {
+      margin-left: 5px;
+      transition: transform 0.2s;
+    }
+
+    .project-link:hover i {
+      transform: translateX(5px);
+    }
+
+    /* Contact Section */
+    .contact-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      border-radius: 28px;
+      padding: 2.5rem;
+      text-align: center;
+      border: 1px solid var(--glass-border);
+    }
+
+    .contact-icon {
+      font-size: 3rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .social-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--accent);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      margin-top: 1.5rem;
+      transition: all 0.25s;
+    }
+
+    .social-btn:hover {
+      background: var(--accent-dark);
+      transform: scale(1.03);
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid rgba(108, 99, 255, 0.2);
+      margin-top: 2rem;
+      font-size: 0.85rem;
+      opacity: 0.7;
+    }
+
+    /* Responsive */
+    @media (max-width: 850px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+        padding: 1rem 0;
+        gap: 1rem;
+      }
+      .nav-links.show {
+        display: flex;
+      }
+      .menu-toggle {
+        display: block;
+      }
+      .nav-container {
+        flex-wrap: wrap;
+      }
+      .hero-content h1 {
+        font-size: 2.5rem;
+      }
+      .avatar {
+        width: 200px;
+        height: 200px;
+        font-size: 5rem;
+      }
+      .section-title {
+        font-size: 1.8rem;
+      }
+      section {
+        padding: 3rem 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 0 1.2rem;
+      }
+      .btn-group {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .btn {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <div class="logo">Nimra.dev</div>
+      <button class="menu-toggle" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="hero-badge"><i class="fas fa-code"></i> Welcome to my portfolio</div>
+          <h1>Nimra Tabassum</h1>
+          <div class="hero-title">Web Developer | Python & Database Enthusiast</div>
+          <p class="hero-desc">Turning ideas into clean code and smart solutions. I craft beautiful websites and practical applications with modern tech.</p>
+          <div class="btn-group">
+            <a href="#projects" class="btn btn-primary">View My Work <i class="fas fa-arrow-right"></i></a>
+            <a href="#contact" class="btn btn-outline">Let's Connect</a>
+          </div>
+        </div>
+        <div class="hero-image">
+          <div class="avatar">
+            <i class="fas fa-laptop-code"></i>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+      <div class="container">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-grid">
+          <div class="about-text">
+            <p>I am Nimra Tabassum, a beginner Web Developer passionate about building websites and learning new technologies. I work with web, database, and office tools to create practical solutions.</p>
+            <p>Currently pursuing software studies, I love turning complex problems into elegant digital experiences. My goal is to grow as a full-stack developer while contributing to meaningful projects.</p>
+            <p><i class="fas fa-map-marker-alt" style="color:#6C63FF;"></i> Based in Pakistan &nbsp;|&nbsp; <i class="fas fa-graduation-cap" style="color:#6C63FF;"></i>  Data Analyst ,Software Student</p>
+          </div>
+          <div class="about-photo">
+            <div class="profile-circle">
+              <i class="fas fa-user-astronaut"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section with exact percentages -->
+    <section id="skills">
+      <div class="container">
+        <h2 class="section-title">My Skills</h2>
+        <div class="skills-container">
+          
+          <!-- Programming & Web -->
+          <div class="skill-category">
+            <div class="category-title"><i class="fas fa-laptop-code"></i> 💻 Programming & Web</div>
+            <div class="skill-item"><div class="skill-info"><span>HTML</span><span>100%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="80"></div></div></div>
+            <div class="skill-item"><div class="skill-info"><span>CSS</span><span>90%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="80"></div></div></div>
+            <div class="skill-item"><div class="skill-info"><span>Python</span><span>90%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="60"></div></div></div>
+            <div class="skill-item"><div class="skill-info"><span>C#</span><span>80%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="50"></div></div></div>
+            <div class="skill-item"><div class="skill-info"><span>Web Development</span><span>95%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="70"></div></div></div>
+          </div>
+
+          <!-- Database -->
+          <div class="skill-category">
+            <div class="category-title"><i class="fas fa-database"></i> 🗄️ Database</div>
+            <div class="skill-item"><div class="skill-info"><span>SQL</span><span>90%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="60"></div></div></div>
+            <div class="skill-item"><div class="skill-info"><span>Microsoft Access</span><span>80%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="55"></div></div></div>
+          </div>
+
+          <!-- Office Tools -->
+          <div class="skill-category">
+            <div class="category-title"><i class="fas fa-file-excel"></i> 📊 Office Tools</div>
+            <div class="skill-item"><div class="skill-info"><span>Microsoft Excel</span><span>100%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="80"></div></div></div>
+            <div class="skill-item"><div class="skill-info"><span>Microsoft Word</span><span>100%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="90"></div></div></div>
+            <div class="skill-item"><div class="skill-info"><span>PowerPoint</span><span>100%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="90"></div></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+      <div class="container">
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="projects-grid">
+          
+          <div class="project-card">
+            <div class="project-title">Student Management System</div>
+            <div class="project-desc">A complete system to manage student records, attendance, and grades. Built with C# and SQL database integration.</div>
+            <div><span class="tech-badge">C#</span><span class="tech-badge">SQL</span><span class="tech-badge">.NET</span></div>
+            <a href="#" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
+          </div>
+
+          <div class="project-card">
+            <div class="project-title">Personal Portfolio Website</div>
+            <div class="project-desc">Modern responsive portfolio with dark/light mode, smooth animations, and glassmorphism design.</div>
+            <div><span class="tech-badge">HTML5</span><span class="tech-badge">CSS3</span><span class="tech-badge">JavaScript</span></div>
+            <a href="#" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
+          </div>
+
+          <div class="project-card">
+            <div class="project-title">Data Analysis Report</div>
+            <div class="project-desc">Interactive data visualization and analysis dashboard using Excel and Python pandas.</div>
+            <div><span class="tech-badge">Excel</span><span class="tech-badge">Python</span><span class="tech-badge">Pandas</span></div>
+            <a href="#" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
+          </div>
+
+          <div class="project-card">
+            <div class="project-title">Database Project</div>
+            <div class="project-desc">Library management system built with MS Access and SQL queries for efficient data handling.</div>
+            <div><span class="tech-badge">MS Access</span><span class="tech-badge">SQL</span><span class="tech-badge">VBA</span></div>
+            <a href="#" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
+          </div>
+
+          <div class="project-card">
+            <div class="project-title">Python Mini Project</div>
+            <div class="project-desc">Task manager CLI application with file handling and data persistence using Python.</div>
+            <div><span class="tech-badge">Python</span><span class="tech-badge">File I/O</span></div>
+            <a href="#" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+      <div class="container">
+        <h2 class="section-title">Let's Connect</h2>
+        <div class="contact-card">
+          <div class="contact-icon"><i class="fab fa-linkedin"></i></div>
+          <h3 style="margin-bottom: 0.5rem;">Let's connect and grow together!</h3>
+          <p style="opacity: 0.8; max-width: 400px; margin: 0 auto;">I'm open to collaborations, freelance work, or just a friendly chat about tech.</p>
+          <a href="https://linkedin.com/in/nimratabassum" target="_blank" class="social-btn">
+            <i class="fab fa-linkedin"></i> Connect on LinkedIn
+          </a>
+          <div style="margin-top: 1.8rem; display: flex; gap: 1.5rem; justify-content: center;">
+            <a href="#" style="color: var(--accent); font-size: 1.5rem;"><i class="fab fa-github"></i></a>
+            <a href="#" style="color: var(--accent); font-size: 1.5rem;"><i class="fab fa-twitter"></i></a>
+            <a href="#" style="color: var(--accent); font-size: 1.5rem;"><i class="fas fa-envelope"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>2025 Nimra Tabassum. All rights reserved.</p>
+      <!-- <p style="margin-top: 0.5rem; font-size: 0.75rem;">Built with <i class="fas fa-heart" style="color:#6C63FF;"></i> using HTML, CSS & JavaScript</p> -->
+    </footer>
+  </main>
+
+  <script>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+    if(menuBtn) {
+      menuBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('show');
+      });
+    }
+
+    // Smooth scroll for nav links
+    document.querySelectorAll('.nav-links a').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        const targetSection = document.getElementById(targetId);
+        if(targetSection) {
+          targetSection.scrollIntoView({ behavior: 'smooth' });
+          if(window.innerWidth <= 850) navLinks.classList.remove('show');
+        }
+      });
+    });
+
+    // Intersection Observer for fade-in and skill bars
+    const sections = document.querySelectorAll('section');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          // If skills section, animate all bars
+          if(entry.target.id === 'skills') {
+            const bars = entry.target.querySelectorAll('.skill-bar-fill');
+            bars.forEach(bar => {
+              const width = bar.getAttribute('data-width');
+              if(width && !bar.style.width) {
+                bar.style.width = width + '%';
+              }
+            });
+          }
+        }
+      });
+    }, { threshold: 0.15 });
+
+    sections.forEach(section => observer.observe(section));
+
+    // Hero visible immediately
+    document.getElementById('home')?.classList.add('visible');
+
+    // Trigger skill bars if skills already visible on load
+    window.addEventListener('load', () => {
+      const skillsSection = document.getElementById('skills');
+      if(skillsSection && skillsSection.getBoundingClientRect().top < window.innerHeight) {
+        const bars = skillsSection.querySelectorAll('.skill-bar-fill');
+        bars.forEach(bar => {
+          const width = bar.getAttribute('data-width');
+          if(width && !bar.style.width) bar.style.width = width + '%';
+        });
+        skillsSection.classList.add('visible');
+      }
+    });
+  </script>
+</body>
+</html>
